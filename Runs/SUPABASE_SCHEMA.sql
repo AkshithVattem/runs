@@ -360,13 +360,21 @@ CREATE POLICY "Users can send messages to their conversations" ON messages
     );
 
 -- Conversation Members Policies
+-- SECURITY DEFINER avoids infinite RLS recursion from a self-referencing policy
+CREATE OR REPLACE FUNCTION my_conversation_ids()
+RETURNS SETOF UUID
+LANGUAGE sql STABLE SECURITY DEFINER SET search_path = public
+AS $$
+    SELECT cm.conversation_id FROM conversation_members cm
+    JOIN users u ON u.id = cm.user_id
+    WHERE u.auth_id = auth.uid();
+$$;
+
 CREATE POLICY "Users can view members of their conversations" ON conversation_members
-    FOR SELECT USING (
-        conversation_id IN (
-            SELECT conversation_id FROM conversation_members cm
-            WHERE cm.user_id IN (SELECT id FROM users WHERE auth_id = auth.uid())
-        )
-    );
+    FOR SELECT USING (conversation_id IN (SELECT my_conversation_ids()));
+
+CREATE POLICY "Users can view their conversations" ON conversations
+    FOR SELECT USING (id IN (SELECT my_conversation_ids()));
 
 -- Reports Policies
 CREATE POLICY "Users can create reports" ON reports

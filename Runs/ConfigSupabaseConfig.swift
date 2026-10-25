@@ -15,11 +15,11 @@ struct SupabaseConfig {
     
     /// Your Supabase project URL
     /// Get this from: Supabase Dashboard → Settings → API → Project URL
-    static let supabaseURL = "https://your-project-id.supabase.co"
+    static let supabaseURL = "https://fjuyydrvstrvhdinhyno.supabase.co"
     
     /// Your Supabase anon/public key
     /// Get this from: Supabase Dashboard → Settings → API → Project API keys → anon public
-    static let supabaseAnonKey = "your-anon-key-here"
+    static let supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZqdXl5ZHJ2c3RydmhkaW5oeW5vIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI5NTY0OTEsImV4cCI6MjEwODUzMjQ5MX0.LwAGO9V6J7bT7aWSHhiyrO7jgG_jvHwLn6S944x9I-c"
     
     // MARK: - Shared Client
     
